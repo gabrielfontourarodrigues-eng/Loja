@@ -111,6 +111,24 @@ async function salvarProduto() {
      carregarProdutos();
 }
 
+document.addEventListener("click", async (e) => {
+    if(e.target.dataset.del) {
+        await fetch(`${API}/produtos/${e.target.dataset.del}`, {method: "DELETE"})
+        carregarProdutos();
+    }
+    if(e.target.dataset.ed) {
+        const resp = await fetch(`${API}/produtos/${e.target.dataset.ed}`)
+        entrarEdicao(await resp.json());
+    }
+});
+    $("salvarUrl").addEvenListener("click", conectar);
+    $("salvarProduto").addEvenListener("click", salvarProduto);
+    $("cancelar").addEvenListener("click", limparForm);
+    $("recarregar").addEvenListener("click", carregarProdutos);
+    $("filtroCatgoria").addEvenListener("change", carregarProdutos);
+    $("ordenar").addEvenListener("change", carregarProdutos);
+
+conectar();
 
 
 
